@@ -29,7 +29,7 @@ trait EagerLoadingTrait
      * @param mixed ...$arguments
      * @return Phalcon\Mvc\ModelInterface[]
      */
-    static public function with(...$arguments)
+    static public function findWith(...$arguments)
     {
         if (!empty ($arguments)) {
             $numArgs = count($arguments);
