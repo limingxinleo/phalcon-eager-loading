@@ -88,9 +88,6 @@ class Loader
         $this->subjectClassName = $className;
         $this->eagerLoads = ($from === NULL || empty ($arguments)) ? [] : static::parseArguments($arguments);
         $this->mustReturnAModel = $mustReturnAModel;
-
-        dd($this->mustReturnAModel);
-
     }
 
     /**
