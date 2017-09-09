@@ -29,7 +29,7 @@ class Loader
     public function __construct($from, ...$arguments)
     {
         $error = false;
-        $className = NULL;
+        $className = null;
         if ($from instanceof ModelInterface) {
             $className = get_class($from);
             $from = [$from];
@@ -47,10 +47,10 @@ class Loader
             $mustReturnAModel = false;
 
         } else if (($fromType = gettype($from)) !== 'array') {
-            if (NULL !== $from && $fromType !== 'boolean') {
+            if (null !== $from && $fromType !== 'boolean') {
                 $error = true;
             } else {
-                $from = NULL;
+                $from = null;
             }
             $mustReturnAModel = false;
 
@@ -58,11 +58,11 @@ class Loader
             $from = array_filter($from);
 
             if (empty ($from)) {
-                $from = NULL;
+                $from = null;
             } else {
                 foreach ($from as $el) {
                     if ($el instanceof ModelInterface) {
-                        if ($className === NULL) {
+                        if ($className === null) {
                             $className = get_class($el);
                         } else {
                             if ($className !== get_class($el)) {
@@ -79,14 +79,13 @@ class Loader
             $mustReturnAModel = false;
         }
 
-
         if ($error) {
             throw new \InvalidArgumentException(static::E_INVALID_SUBJECT);
         }
 
         $this->subject = $from;
         $this->subjectClassName = $className;
-        $this->eagerLoads = ($from === NULL || empty ($arguments)) ? [] : static::parseArguments($arguments);
+        $this->eagerLoads = ($from === null || empty ($arguments)) ? [] : static::parseArguments($arguments);
         $this->mustReturnAModel = $mustReturnAModel;
     }
 
@@ -171,7 +170,7 @@ class Loader
     {
         $ret = $this->subject;
 
-        if (NULL !== $ret && $this->mustReturnAModel) {
+        if (null !== $ret && $this->mustReturnAModel) {
             $ret = $ret[0];
         }
 
@@ -204,17 +203,17 @@ class Loader
         if (count($arguments) === 1 && isset ($arguments[0]) && is_array($arguments[0])) {
             foreach ($arguments[0] as $relationAlias => $queryConstraints) {
                 if (is_string($relationAlias)) {
-                    $relations[$relationAlias] = is_callable($queryConstraints) ? $queryConstraints : NULL;
+                    $relations[$relationAlias] = is_callable($queryConstraints) ? $queryConstraints : null;
                 } else {
                     if (is_string($queryConstraints)) {
-                        $relations[$queryConstraints] = NULL;
+                        $relations[$queryConstraints] = null;
                     }
                 }
             }
         } else {
             foreach ($arguments as $relationAlias) {
                 if (is_string($relationAlias)) {
-                    $relations[$relationAlias] = NULL;
+                    $relations[$relationAlias] = null;
                 }
             }
         }
@@ -231,7 +230,7 @@ class Loader
      * @param null|callable $constraints
      * @return $this
      */
-    public function addEagerLoad($relationAlias, callable $constraints = NULL)
+    public function addEagerLoad($relationAlias, callable $constraints = null)
     {
         if (!is_string($relationAlias)) {
             throw new \InvalidArgumentException(sprintf(
@@ -321,7 +320,7 @@ class Loader
                 }
 
                 $parent = $nestingLevel > 0 ? $eagerLoads[$parentName] : $this;
-                $constraints = $nestingLevel + 1 === $nestingLevels ? $queryConstraints : NULL;
+                $constraints = $nestingLevel + 1 === $nestingLevels ? $queryConstraints : null;
 
                 $eagerLoads[$name] = new EagerLoad($relation, $constraints, $parent);
             } while (++$nestingLevel < $nestingLevels);

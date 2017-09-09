@@ -39,6 +39,7 @@ trait EagerLoadingTrait
             if ($numArgs >= 2 && is_array($arguments[$lastArg])) {
                 $parameters = $arguments[$lastArg];
 
+                // 删除查询主模型实例的参数
                 unset ($arguments[$lastArg]);
 
                 if (isset ($parameters['columns'])) {
